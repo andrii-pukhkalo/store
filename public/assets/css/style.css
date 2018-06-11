@@ -3504,6 +3504,15 @@ i:before {
   padding: 16px 0px;
 }
 
+.product_comment_benefits {
+  color: #0dda2a;
+}
+
+.product_comment_shortcomming {
+  color: #e7352b;
+}
+
+
 .p_d_title {
   font-size: 16px;
   color: #000;
@@ -3526,6 +3535,14 @@ i:before {
 .p_color .color_list li {
   display: inline-block;
   margin-right: 10px;
+}
+
+.product-details-color {
+  height: 28px;
+  width: 28px;
+  border-radius: 50%;
+  display: inline-block;
+
 }
 
 .p_color .color_list li a {

@@ -4,6 +4,11 @@ namespace App\Entity\Product;
 
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\OneToOne;
+use Doctrine\ORM\Mapping\OneToMany;
+use Doctrine\ORM\Mapping\ManyToOne;
+use Doctrine\ORM\Mapping\JoinColumn;
+
+use Doctrine\Common\Collections\ArrayCollection;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\ProductRepository")
@@ -63,6 +68,24 @@ class Product
      */
     private $specification;
 
+    /**
+     * One Product has Many ProductComments.
+     * @OneToMany(targetEntity="App\Entity\Product\Comment\ProductComment", mappedBy="product")
+     */
+    private $comments;
+
+    /**
+     * One Product has Many related Products.
+     * @OneToMany(targetEntity="App\Entity\Product\Product", mappedBy="parentProduct")
+     */
+    private $relatedProducts;
+
+    /**
+     * Many Categories have One Category.
+     * @ManyToOne(targetEntity="App\Entity\Product\Product", inversedBy="relatedProducts")
+     * @JoinColumn(name="parent_product_id", referencedColumnName="id")
+     */
+    private $parentProduct;
 
     /**
      * @param string $name
@@ -72,6 +95,9 @@ class Product
     {
         $this->name = $name;
         $this->price = $money;
+
+        $this->comments = new ArrayCollection();
+        $this->relatedProducts = new ArrayCollection();
     }
 
     /**
@@ -130,5 +156,15 @@ class Product
 
     public function specification() {
         return $this->specification;
+    }
+
+    public function comments()
+    {
+        return $this->comments;
+    }
+
+    public function relatedProducts()
+    {
+        return $this->relatedProducts;
     }
 }

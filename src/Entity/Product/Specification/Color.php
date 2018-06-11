@@ -58,6 +58,7 @@ class Color extends Property
 
     public function viewAsHtml()
     {
-        return '<a class="product-details-color" href="#"></a>';
+        return "<a class='product-details-color'
+                    style='background: rgb($this->r,$this->g,$this->b);' href='#'></a>";
     }
 }
