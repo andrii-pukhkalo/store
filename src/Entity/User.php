@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Mapping\OneToOne;
+use Doctrine\ORM\Mapping\JoinColumn;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
@@ -26,6 +28,13 @@ class User implements UserInterface
      * @ORM\Column(type="string")
      */
     private $password;
+
+    /**
+     * One User has One Cart.
+     * @OneToOne(targetEntity="App\Entity\Cart\Cart", inversedBy="cart")
+     * @JoinColumn(name="cart_id", referencedColumnName="id")
+     */
+    private $cart;
 
     /**
      * @return mixed

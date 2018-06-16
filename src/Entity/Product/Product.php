@@ -87,21 +87,7 @@ class Product
      */
     private $parentProduct;
 
-    /**
-     * @return mixed
-     */
-    public function getParentProduct()
-    {
-        return $this->parentProduct;
-    }
 
-    /**
-     * @param mixed $parentProduct
-     */
-    public function setParentProduct($parentProduct): void
-    {
-        $this->parentProduct = $parentProduct;
-    }
 
     /**
      * Many Products have One related Product.
@@ -110,21 +96,6 @@ class Product
      */
     private $category;
 
-    /**
-     * @return mixed
-     */
-    public function getCategory()
-    {
-        return $this->category;
-    }
-
-    /**
-     * @param mixed $category
-     */
-    public function setCategory($category): void
-    {
-        $this->category = $category;
-    }
 
     /**
      * @param string $name
@@ -205,5 +176,37 @@ class Product
     public function relatedProducts()
     {
         return $this->relatedProducts;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getParentProduct()
+    {
+        return $this->parentProduct;
+    }
+
+    /**
+     * @param mixed $parentProduct
+     */
+    public function setParentProduct($parentProduct): void
+    {
+        $this->parentProduct = $parentProduct;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function category()
+    {
+        return $this->category;
+    }
+
+    /**
+     * @param mixed $category
+     */
+    public function setCategory($category): void
+    {
+        $this->category = $category;
     }
 }
