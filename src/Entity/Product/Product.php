@@ -81,11 +81,50 @@ class Product
     private $relatedProducts;
 
     /**
-     * Many Categories have One Category.
+     * Many Products have One related Product.
      * @ManyToOne(targetEntity="App\Entity\Product\Product", inversedBy="relatedProducts")
      * @JoinColumn(name="parent_product_id", referencedColumnName="id")
      */
     private $parentProduct;
+
+    /**
+     * @return mixed
+     */
+    public function getParentProduct()
+    {
+        return $this->parentProduct;
+    }
+
+    /**
+     * @param mixed $parentProduct
+     */
+    public function setParentProduct($parentProduct): void
+    {
+        $this->parentProduct = $parentProduct;
+    }
+
+    /**
+     * Many Products have One related Product.
+     * @ManyToOne(targetEntity="App\Entity\Product\ProductCategory")
+     * @JoinColumn(name="category_id", referencedColumnName="id")
+     */
+    private $category;
+
+    /**
+     * @return mixed
+     */
+    public function getCategory()
+    {
+        return $this->category;
+    }
+
+    /**
+     * @param mixed $category
+     */
+    public function setCategory($category): void
+    {
+        $this->category = $category;
+    }
 
     /**
      * @param string $name

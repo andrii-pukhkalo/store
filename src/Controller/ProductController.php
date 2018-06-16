@@ -33,7 +33,6 @@ class ProductController extends AbstractController
      */
     public function details($id, ProductRepository $productRepository) {
         $product = $productRepository->findOneBy(['id' => $id]);
-//        dump($product);
         return $this->render('product/details.html.twig', [
             'product' => $product,
         ]);
