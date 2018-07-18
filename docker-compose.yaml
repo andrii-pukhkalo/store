@@ -3,14 +3,21 @@ services:
   store.nginx:
     container_name: store.nginx
     hostname: store.nginx
-    image: nginx
+    build:
+      context: ./docker/nginx
+      dockerfile: Dockerfile
     restart: always
     volumes:
-      - php_sockets:/var/run/sockets:rw
-      - ./:/var/www/html:rw
-      - ./docker/nginx:/etc/nginx/conf.d:rw
+      - ./api/:/var/www/store/api:rw
+      - ./angular/:/var/www/store/angular:rw
+      - ./docker/certs:/var/www/store/certs:ro
+      - ./docker/nginx/snippets:/etc/nginx/snippets:rw
+      - ./docker/nginx/conf.d:/etc/nginx/conf.d:rw
+      - ./docker/logs:/var/log/nginx:rw
     ports:
-      - 32974:80
+      - 32978:80
+      - 32979:4200
+      - 443:443
 
   store.php:
     container_name: store.php
@@ -20,45 +27,31 @@ services:
       dockerfile: Dockerfile
     restart: always
     volumes:
-      - php_sockets:/var/run/sockets:rw
-      - mysql_sockets:/var/run/mysqld:rw
-      - ./:/var/www/html:rw
-    environment:
-      USER_ID: 1000
-      USER_NAME: user
+      - ./api:/var/www/store/api:rw
+
   store.angular:
     container_name: store.angular
     hostname: store.angular
     build:
-      context: ./docker/angular
+      context: ./docker/php
       dockerfile: Dockerfile
-    ports:
-        - 4200:4200
+    restart: always
     volumes:
-        - ./frontend:/home/node/app/frontend
+      - ./angular:/var/www/store/angular:rw
+
   store.mysql:
     container_name: store.mysql
     hostname: store.mysql
     image: mysql:5.7
     restart: always
-    volumes:
-      - mysql_data:/var/lib/mysql
-      - mysql_sockets:/var/run/mysqld
     environment:
-      MYSQL_ROOT_PASSWORD: BRW31Nw3T_G_0YPE
+      MYSQL_ROOT_PASSWORD: 123
       MYSQL_DATABASE: store
       MYSQL_USER: root
-      MYSQL_PASSWORD: DfnOwStGdz--5fox
-  adminer:
+      MYSQL_PASSWORD: 123
+  store.adminer:
     image: adminer
     container_name: store.adminer
     restart: always
     hostname: store.adminer
-    ports:
-      - 8080
-
-volumes:
-  php_sockets:
-  mysql_data:
-  mysql_sockets:
 
