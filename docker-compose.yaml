@@ -26,7 +26,16 @@ services:
     environment:
       USER_ID: 1000
       USER_NAME: user
-
+  store.angular:
+    container_name: store.angular
+    hostname: store.angular
+    build:
+      context: ./docker/angular
+      dockerfile: Dockerfile
+    ports:
+        - 4200:4200
+    volumes:
+        - ./frontend:/home/node/app/frontend
   store.mysql:
     container_name: store.mysql
     hostname: store.mysql

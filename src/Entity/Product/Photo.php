@@ -29,6 +29,11 @@ class Photo
      */
     private $fullNameLargePhoto;
 
+    /**
+     * @ORM\Column(type="string")
+     */
+    private $fullNameCartPhoto;
+
 
     /**
      * Many Photos have One PhotoGallery.
@@ -60,8 +65,15 @@ class Photo
         return $this->fullNameLargePhoto;
     }
 
+    public function fullNameCartPhoto()
+    {
+        return $this->fullNameCartPhoto;
+    }
+
     public function isMain() {
         $condition = $this->id == $this->photoGallery->mainPhoto()->id();
         return $condition;
     }
+
+
 }

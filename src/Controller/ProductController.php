@@ -37,4 +37,11 @@ class ProductController extends AbstractController
             'product' => $product,
         ]);
     }
+
+    /**
+     * @Route("/admin")
+     **/
+    public function admin() {
+        return $this->render('home/index.html.twig');
+    }
 }

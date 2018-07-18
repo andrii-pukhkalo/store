@@ -31,8 +31,7 @@ class User implements UserInterface
 
     /**
      * One User has One Cart.
-     * @OneToOne(targetEntity="App\Entity\Cart\Cart", inversedBy="cart")
-     * @JoinColumn(name="cart_id", referencedColumnName="id")
+     * @OneToOne(targetEntity="App\Entity\Cart\Cart", mappedBy="user")
      */
     private $cart;
 
@@ -109,5 +108,9 @@ class User implements UserInterface
     public function eraseCredentials()
     {
         // TODO: Implement eraseCredentials() method.
+    }
+
+    public function cart() {
+        return $this->cart;
     }
 }

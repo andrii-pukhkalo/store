@@ -21,6 +21,10 @@
     <div class="container">
         <div class="login_inner">
             <div class="row">
+                {% if error %}
+                    {{ dump(error) }}
+                    <div class="text-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+                {% endif %}
                 <div class="col-lg-4">
                     <div class="login_title">
                         <h2>log in your account</h2>
@@ -36,6 +40,7 @@
                         <div class="col-lg-12 form-group ">
                             <div class="solid_banner_area">
                                 {% if error %}
+                                    {{ dump(error) }}
                                     <div class="text-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
                                 {% endif %}
                             </div>

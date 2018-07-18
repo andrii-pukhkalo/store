@@ -48,7 +48,7 @@ class CartItem
     /**
      * @return mixed
      */
-    public function getProduct()
+    public function product()
     {
         return $this->product;
     }

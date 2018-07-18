@@ -5,6 +5,7 @@ namespace App\Entity\Cart;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\OneToMany;
 use Doctrine\ORM\Mapping\OneToOne;
+use Doctrine\ORM\Mapping\JoinColumn;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\CartRepository")
@@ -25,8 +26,9 @@ class Cart
     private $cartItems;
 
     /**
-     * One User has one Cart.
-     * @OneToOne(targetEntity="App\Entity\User", mappedBy="user")
+     * One Cart has One User.
+     * @OneToOne(targetEntity="App\Entity\User", inversedBy="cart")
+     * @JoinColumn(name="user_id", referencedColumnName="id")
      */
     private $user;
 
@@ -38,7 +40,7 @@ class Cart
     /**
      * @return mixed
      */
-    public function getCartItems()
+    public function items()
     {
         return $this->cartItems;
     }
@@ -54,16 +56,8 @@ class Cart
     /**
      * @return mixed
      */
-    public function getUser()
+    public function user()
     {
         return $this->user;
-    }
-
-    /**
-     * @param mixed $user
-     */
-    public function setUser($user): void
-    {
-        $this->user = $user;
     }
 }

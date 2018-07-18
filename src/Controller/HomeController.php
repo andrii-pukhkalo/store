@@ -18,12 +18,11 @@ class HomeController extends AbstractController
 
         $repository = $this->getDoctrine()->getRepository(Product::class);
 
-        $product = $repository->find(1);
 
         /**
-          * @var $product Product
-          */
-        dump($product->price()->amountInCurrency());
+         * @var $product Product
+         */
+        $product = $repository->find(1);
 
         return $this->render('home/index.html.twig');
     }
