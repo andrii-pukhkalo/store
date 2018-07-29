@@ -113,8 +113,12 @@ class Product
     /**
       * @return int
       */
-    public function id() {
+    public function getId() {
         return $this->id;
+    }
+
+    public function getName() {
+        return $this->name;
     }
 
     /**

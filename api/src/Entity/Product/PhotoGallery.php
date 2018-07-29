@@ -45,6 +45,10 @@ class PhotoGallery
         $this->photos = new ArrayCollection();
     }
 
+    public function id() {
+        return $this->id;
+    }
+
     /**
      * @return Photo
      */

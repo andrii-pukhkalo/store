@@ -79,6 +79,92 @@ class srcDevDebugProjectContainerUrlMatcher extends Symfony\Bundle\FrameworkBund
             return array (  '_controller' => 'App\\Controller\\ProductController::admin',  '_route' => 'app_product_admin',);
         }
 
+        if (0 === strpos($pathinfo, '/api')) {
+            // api_entrypoint
+            if (preg_match('#^/api(?:/(?P<index>index)(?:\\.(?P<_format>[^/]++))?)?$#sD', $pathinfo, $matches)) {
+                return $this->mergeDefaults(array_replace($matches, array('_route' => 'api_entrypoint')), array (  '_controller' => 'api_platform.action.entrypoint',  '_format' => '',  '_api_respond' => '1',  'index' => 'index',));
+            }
+
+            // api_doc
+            if (0 === strpos($pathinfo, '/api/docs') && preg_match('#^/api/docs(?:\\.(?P<_format>[^/]++))?$#sD', $pathinfo, $matches)) {
+                return $this->mergeDefaults(array_replace($matches, array('_route' => 'api_doc')), array (  '_controller' => 'api_platform.action.documentation',  '_api_respond' => '1',  '_format' => '',));
+            }
+
+            // api_graphql_entrypoint
+            if ('/api/graphql' === $pathinfo) {
+                return array (  '_controller' => 'api_platform.graphql.action.entrypoint',  '_graphql' => true,  '_route' => 'api_graphql_entrypoint',);
+            }
+
+            // api_jsonld_context
+            if (0 === strpos($pathinfo, '/api/contexts') && preg_match('#^/api/contexts/(?P<shortName>.+)(?:\\.(?P<_format>[^/]++))?$#sD', $pathinfo, $matches)) {
+                return $this->mergeDefaults(array_replace($matches, array('_route' => 'api_jsonld_context')), array (  '_controller' => 'api_platform.jsonld.action.context',  '_api_respond' => '1',  '_format' => 'jsonld',));
+            }
+
+            if (0 === strpos($pathinfo, '/api/products')) {
+                // api_products_get_collection
+                if (preg_match('#^/api/products(?:\\.(?P<_format>[^/]++))?$#sD', $pathinfo, $matches)) {
+                    $ret = $this->mergeDefaults(array_replace($matches, array('_route' => 'api_products_get_collection')), array (  '_controller' => 'api_platform.action.get_collection',  '_format' => NULL,  '_api_resource_class' => 'App\\Entity\\Product\\Product',  '_api_collection_operation_name' => 'get',));
+                    if (!in_array($canonicalMethod, array('GET'))) {
+                        $allow = array_merge($allow, array('GET'));
+                        goto not_api_products_get_collection;
+                    }
+
+                    return $ret;
+                }
+                not_api_products_get_collection:
+
+                // api_products_post_collection
+                if (preg_match('#^/api/products(?:\\.(?P<_format>[^/]++))?$#sD', $pathinfo, $matches)) {
+                    $ret = $this->mergeDefaults(array_replace($matches, array('_route' => 'api_products_post_collection')), array (  '_controller' => 'api_platform.action.post_collection',  '_format' => NULL,  '_api_resource_class' => 'App\\Entity\\Product\\Product',  '_api_collection_operation_name' => 'post',));
+                    if (!in_array($requestMethod, array('POST'))) {
+                        $allow = array_merge($allow, array('POST'));
+                        goto not_api_products_post_collection;
+                    }
+
+                    return $ret;
+                }
+                not_api_products_post_collection:
+
+                // api_products_get_item
+                if (preg_match('#^/api/products/(?P<id>[^/\\.]++)(?:\\.(?P<_format>[^/]++))?$#sD', $pathinfo, $matches)) {
+                    $ret = $this->mergeDefaults(array_replace($matches, array('_route' => 'api_products_get_item')), array (  '_controller' => 'api_platform.action.get_item',  '_format' => NULL,  '_api_resource_class' => 'App\\Entity\\Product\\Product',  '_api_item_operation_name' => 'get',));
+                    if (!in_array($canonicalMethod, array('GET'))) {
+                        $allow = array_merge($allow, array('GET'));
+                        goto not_api_products_get_item;
+                    }
+
+                    return $ret;
+                }
+                not_api_products_get_item:
+
+                // api_products_delete_item
+                if (preg_match('#^/api/products/(?P<id>[^/\\.]++)(?:\\.(?P<_format>[^/]++))?$#sD', $pathinfo, $matches)) {
+                    $ret = $this->mergeDefaults(array_replace($matches, array('_route' => 'api_products_delete_item')), array (  '_controller' => 'api_platform.action.delete_item',  '_format' => NULL,  '_api_resource_class' => 'App\\Entity\\Product\\Product',  '_api_item_operation_name' => 'delete',));
+                    if (!in_array($requestMethod, array('DELETE'))) {
+                        $allow = array_merge($allow, array('DELETE'));
+                        goto not_api_products_delete_item;
+                    }
+
+                    return $ret;
+                }
+                not_api_products_delete_item:
+
+                // api_products_put_item
+                if (preg_match('#^/api/products/(?P<id>[^/\\.]++)(?:\\.(?P<_format>[^/]++))?$#sD', $pathinfo, $matches)) {
+                    $ret = $this->mergeDefaults(array_replace($matches, array('_route' => 'api_products_put_item')), array (  '_controller' => 'api_platform.action.put_item',  '_format' => NULL,  '_api_resource_class' => 'App\\Entity\\Product\\Product',  '_api_item_operation_name' => 'put',));
+                    if (!in_array($requestMethod, array('PUT'))) {
+                        $allow = array_merge($allow, array('PUT'));
+                        goto not_api_products_put_item;
+                    }
+
+                    return $ret;
+                }
+                not_api_products_put_item:
+
+            }
+
+        }
+
         // login
         if ('/login' === $pathinfo) {
             return array (  '_controller' => 'App\\Controller\\SecurityController::login',  '_route' => 'login',);

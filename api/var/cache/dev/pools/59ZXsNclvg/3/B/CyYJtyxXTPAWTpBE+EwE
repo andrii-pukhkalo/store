@@ -1,3 +1,0 @@
-0
-%255BApp%255CEntity%255CProduct%255CProductDescription%2524rating%255D%255B1%255D
-a:1:{i:0;O:29:"Doctrine\ORM\Mapping\Embedded":2:{s:5:"class";s:25:"App\Entity\Product\Rating";s:12:"columnPrefix";N;}}

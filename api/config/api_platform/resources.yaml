@@ -1,0 +1,8 @@
+App\Entity\Product\Product:
+#    collectionOperations:
+#        get: ~
+#    itemOperations:
+#        get: ~
+#        products123:
+#            method: 'GET'
+#            controller: 'App\Controller\ProductController'

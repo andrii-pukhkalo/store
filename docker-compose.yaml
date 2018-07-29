@@ -54,4 +54,6 @@ services:
     container_name: store.adminer
     restart: always
     hostname: store.adminer
+    ports:
+      - 32980:8080
 
